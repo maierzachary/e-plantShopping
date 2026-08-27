@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
 import './ProductList.css';
@@ -7,12 +7,15 @@ import CartItem from './CartItem';
 function ProductList({ onHomeClick }) {
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart.items);
+  const CartItems = useSelector((state) => state.cart.items);
 
-  const totalItems = cart.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const calculateTotalQuantity = () => {
+    return CartItems
+      ? CartItems.reduce((total, item) => total + item.quantity, 0)
+      : 0;
+  };
+
+  const totalItems = calculateTotalQuantity();
 
   const [addedToCart, setAddedToCart] = useState({});
   const [showCart, setShowCart] = useState(false);
@@ -228,7 +231,7 @@ function ProductList({ onHomeClick }) {
 
   const styleObj = {
     backgroundColor: '#4CAF50',
-    color: '#fff!important',
+    color: '#fff',
     padding: '15px',
     display: 'flex',
     justifyContent: 'space-between',

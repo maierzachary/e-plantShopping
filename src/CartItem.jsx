@@ -4,10 +4,9 @@ import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
-  const cart = useSelector(state => state.cart.items);
+  const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     let total = 0;
 
@@ -53,23 +52,24 @@ const CartItem = ({ onContinueShopping }) => {
     dispatch(removeItem(item.name));
   };
 
-  // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
     const itemCost = parseFloat(item.cost.substring(1));
+
     return itemCost * item.quantity;
   };
 
   return (
     <div className="cart-container">
-
       <h2 style={{ color: 'black' }}>
         Total Cart Amount: ${calculateTotalAmount()}
       </h2>
 
       <div>
-        {cart.map(item => (
-          <div className="cart-item" key={item.name}>
-
+        {cart.map((item) => (
+          <div
+            className="cart-item"
+            key={item.name}
+          >
             <img
               className="cart-item-image"
               src={item.image}
@@ -77,7 +77,6 @@ const CartItem = ({ onContinueShopping }) => {
             />
 
             <div className="cart-item-details">
-
               <div className="cart-item-name">
                 {item.name}
               </div>
@@ -87,7 +86,6 @@ const CartItem = ({ onContinueShopping }) => {
               </div>
 
               <div className="cart-item-quantity">
-
                 <button
                   className="cart-item-button cart-item-button-dec"
                   onClick={() => handleDecrement(item)}
@@ -105,7 +103,6 @@ const CartItem = ({ onContinueShopping }) => {
                 >
                   +
                 </button>
-
               </div>
 
               <div className="cart-item-total">
@@ -118,19 +115,20 @@ const CartItem = ({ onContinueShopping }) => {
               >
                 Delete
               </button>
-
             </div>
           </div>
         ))}
       </div>
 
       <div
-        style={{ marginTop: '20px', color: 'black' }}
+        style={{
+          marginTop: '20px',
+          color: 'black'
+        }}
         className="total_cart_amount"
       ></div>
 
       <div className="continue_shopping_btn">
-
         <button
           className="get-started-button"
           onClick={(e) => handleContinueShopping(e)}
@@ -146,9 +144,7 @@ const CartItem = ({ onContinueShopping }) => {
         >
           Checkout
         </button>
-
       </div>
-
     </div>
   );
 };
